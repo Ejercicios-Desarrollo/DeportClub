@@ -54,4 +54,8 @@ Esto proporciona:
 
 ## Modelo de datos
 
+Para el modelado de la motivación, utilizaría una estrategia de JOINED TABLE, para separar los distintos atributos en cada tabla, compartiendo los atributos comunes en la tabla motivación. 
 
+Si hubiera elegido modelarlo como SINGLE TABLE tendría todos los atributos, muchos de ellos nulos, en la misma tabla.
+
+La estrategia TABLE PER CLASS queda descartada ya que no puedo tener una relación bidireccional con el deportista, me impide utilizar el polimorfismo con las motivaciones.
