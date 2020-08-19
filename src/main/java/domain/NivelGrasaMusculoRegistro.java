@@ -8,9 +8,9 @@ public class NivelGrasaMusculoRegistro {
     private LocalDateTime fechaHora;
 
     public NivelGrasaMusculoRegistro(Float nivelDeGrasa, Float nivelDeMasaMuscular){
-        this.fechaHora = LocalDateTime.now();
         this.nivelDeGrasa = nivelDeGrasa;
         this.nivelDeMasaMuscular = nivelDeMasaMuscular;
+        this.fechaHora = LocalDateTime.now();
     }
 
     public Float getNivelDeGrasa() {

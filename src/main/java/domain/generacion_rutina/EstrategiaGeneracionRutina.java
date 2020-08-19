@@ -19,6 +19,7 @@ public abstract class EstrategiaGeneracionRutina {
     protected static Float pesoDefecto = 5f;
 
     public EstrategiaGeneracionRutina(List<Ejercicio> ejercicios){
+        this.ejercicios = new ArrayList<>();
         this.ejercicios.addAll(ejercicios);
     }
 

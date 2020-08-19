@@ -80,8 +80,7 @@ public class Deportista {
     }
 
     public void agregarNivelGrasaMusculoRegistro(Float nivelDeGrasa, Float nivelDeMasaMuscular){
-        NivelGrasaMusculoRegistro nivelGrasaMusculoRegistro = new NivelGrasaMusculoRegistro(nivelDeGrasa, nivelDeMasaMuscular);
-        this.nivelGrasaMusculoRegistros.add(nivelGrasaMusculoRegistro);
+        this.nivelGrasaMusculoRegistros.add(new NivelGrasaMusculoRegistro(nivelDeGrasa, nivelDeMasaMuscular));
     }
 
     public void agregarPesoRegistro(Float peso){

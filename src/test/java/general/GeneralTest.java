@@ -47,6 +47,10 @@ public class GeneralTest {
     Ejercicio ejercicioPiernas2;
     Ejercicio ejercicioPiernas3;
     Ejercicio ejercicioPiernas4;
+    Ejercicio ejercicioAbdominales1;
+    Ejercicio ejercicioAbdominales2;
+    Ejercicio ejercicioAbdominales3;
+    Ejercicio ejercicioAbdominales4;
     List<Ejercicio> ejerciciosLista;
     List<Ejercicio> ejercicios;
 
@@ -102,13 +106,22 @@ public class GeneralTest {
                 TipoMusculo.PIERNAS, 8d, 2d);
         this.ejercicioPiernas4 = new EjercicioSimple("Gemelos", TipoEjercicio.SIMPLE,
                 TipoMusculo.PIERNAS, 7d, 2d);
+        this.ejercicioAbdominales1 = new EjercicioSimple("Cortos", TipoEjercicio.SIMPLE,
+                TipoMusculo.ABDOMINALES, 6d, 2d);
+        this.ejercicioAbdominales2 = new EjercicioSimple("Cruzados", TipoEjercicio.SIMPLE,
+                TipoMusculo.ABDOMINALES, 6d, 2d);
+        this.ejercicioAbdominales3 = new EjercicioSimple("Oblicuos", TipoEjercicio.SIMPLE,
+                TipoMusculo.ABDOMINALES, 6d, 2d);
+        this.ejercicioAbdominales4 = new EjercicioSimple("Colgados", TipoEjercicio.SIMPLE,
+                TipoMusculo.ABDOMINALES, 6d, 2d);
 
         this.ejerciciosLista = Arrays.asList(ejercicioCorrer, ejercicioSaltar,
                 ejercicioBrazos1, ejercicioBrazos2, ejercicioBrazos3, ejercicioBrazos4,
                 ejercicioEspalda1, ejercicioEspalda2, ejercicioEspalda3, ejercicioEspalda4,
                 ejercicioPecho1, ejercicioPecho2, ejercicioPecho3, ejercicioPecho4,
                 ejercicioHombros1, ejercicioHombros2, ejercicioHombros3, ejercicioHombros4,
-                ejercicioPiernas1, ejercicioPiernas2, ejercicioPiernas3, ejercicioPiernas4);
+                ejercicioPiernas1, ejercicioPiernas2, ejercicioPiernas3, ejercicioPiernas4,
+                ejercicioAbdominales1, ejercicioAbdominales2, ejercicioAbdominales3, ejercicioAbdominales4);
 
         this.ejercicios = new ArrayList<>();
         ejercicios.addAll(ejerciciosLista);
@@ -130,7 +143,7 @@ public class GeneralTest {
         Assert.assertEquals(java.util.Optional.of(80f), java.util.Optional.of(deportista.getUltimoPeso()));
         Assert.assertEquals(java.util.Optional.of(75f), java.util.Optional.of(motivacion.getPesoIdeal()));
         Assert.assertEquals(3, motivacion.getDiasDisponibles().size());
-        Assert.assertEquals(44, motivacion.getEjercicios().size());
+        Assert.assertEquals(26, motivacion.getEjercicios().size());
         Assert.assertEquals(3, rutina.getDiasEntrenamiento().size());
     }
 

@@ -21,7 +21,7 @@ public abstract class Motivacion {
     protected Double maximoNivelAerobico;
     protected Double minimoNivelEjercitacionMuscular;
     protected Double maximoNivelEjercitacionMuscular;
-    protected Integer cantidadEjerciciosPromedio;
+    protected Integer cantidadEjerciciosPromedio = 12;
     protected List<Ejercicio> ejercicios;
 
     public Motivacion(Deportista deportista, List<DayOfWeek> diasDisponibles, List<Ejercicio> ejercicios){
@@ -38,11 +38,20 @@ public abstract class Motivacion {
 
     private void asignarEstrategiaGeneracionRutina(){
         int cantidadDias = diasDisponibles.size();
+        System.out.println("cantidadDias: " + cantidadDias);
         switch(cantidadDias){
-            case 3: this.estrategiaGeneracionRutina = new GeneracionRutina3Dias(this.ejercicios);
-            case 4: this.estrategiaGeneracionRutina = new GeneracionRutina4Dias(this.ejercicios);
-            case 5: this.estrategiaGeneracionRutina = new GeneracionRutina5Dias(this.ejercicios);
-            case 6: this.estrategiaGeneracionRutina = new GeneracionRutina6Dias(this.ejercicios);
+            case 3:
+                this.estrategiaGeneracionRutina = new GeneracionRutina3Dias(this.ejercicios);
+                break;
+            case 4:
+                this.estrategiaGeneracionRutina = new GeneracionRutina4Dias(this.ejercicios);
+                break;
+            case 5:
+                this.estrategiaGeneracionRutina = new GeneracionRutina5Dias(this.ejercicios);
+                break;
+            case 6:
+                this.estrategiaGeneracionRutina = new GeneracionRutina6Dias(this.ejercicios);
+                break;
         }
     }
 

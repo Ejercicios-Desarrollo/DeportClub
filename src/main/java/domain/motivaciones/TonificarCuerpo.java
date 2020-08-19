@@ -26,16 +26,8 @@ public class TonificarCuerpo extends Motivacion{
     }
 
     public void calcularNivelesIdeales(Deportista deportista){
-        calcularNivelDeGrasaIdeal(deportista.getAltura(), deportista.getUltimoPeso(),deportista.getSexo());
-        calcularNivelDeMasaMuscularIdeal(deportista.getAltura(), deportista.getUltimoPeso(),deportista.getSexo());
-    }
-
-    public void calcularNivelDeGrasaIdeal(Float altura, Float peso, Sexo sexo){
-        this.nivelDeGrasaIdeal = this.adapter.calcularNivelDeGrasaIdeal(altura, peso, sexo);
-    }
-
-    public void calcularNivelDeMasaMuscularIdeal(Float altura, Float peso, Sexo sexo){
-        this.nivelDeMasaMuscularIdeal = this.adapter.calcularNivelDeMasaMuscularIdeal(altura, peso, sexo);
+        this.nivelDeGrasaIdeal = this.adapter.calcularNivelDeGrasaIdeal(deportista.getAltura(), deportista.getUltimoPeso(),deportista.getSexo());
+        this.nivelDeMasaMuscularIdeal = this.adapter.calcularNivelDeMasaMuscularIdeal(deportista.getAltura(), deportista.getUltimoPeso(),deportista.getSexo());
     }
 
     @Override
