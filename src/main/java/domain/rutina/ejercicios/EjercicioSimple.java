@@ -3,35 +3,27 @@ package domain.rutina.ejercicios;
 import domain.rutina.DiaEntrenamiento;
 import domain.rutina.registro.EjercicioSimpleRegistro;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@DiscriminatorValue("ejercicio_simple")
 public class EjercicioSimple extends Ejercicio {
+    @Column(name = "ejercitacion_muscular")
     private Double nivelEjercitacionMuscular;
-    private Double nivelAerobico;
 
+    @Column(name = "nivel_aerobico")
+    private Double nivelAerobico;
 
     public EjercicioSimple(String descripcion, TipoEjercicio tipoEjercicio, TipoMusculo tipoMusculo,
                            Double nivelEjercitacionMuscular, Double nivelAerobico){
-        super(descripcion, tipoEjercicio, tipoMusculo);
+        super(descripcion, tipoMusculo);
+        this.tipoEjercicio = TipoEjercicio.SIMPLE;
         this.nivelEjercitacionMuscular = nivelEjercitacionMuscular;
         this.nivelAerobico = nivelAerobico;
-    }
-
-    public void serRealizado(Float peso, Integer series, Integer repeticiones,
-                             DiaEntrenamiento diaEntrenamiento) {
-        EjercicioSimpleAsignacion ejercicioSimpleAsignacion = getEjercicioDeLista(diaEntrenamiento);
-        Boolean completado = ejercicioSimpleAsignacion.fueCumplida(peso, series, repeticiones);
-        EjercicioSimpleRegistro ejercicioSimpleRegistro = new EjercicioSimpleRegistro(this, peso, series, repeticiones, completado);
-        diaEntrenamiento.registrarEjercicio(ejercicioSimpleRegistro);
-    }
-
-    private EjercicioSimpleAsignacion getEjercicioDeLista(DiaEntrenamiento diaEntrenamiento){
-        List<EjercicioSimpleAsignacion> ejerciciosAsignacionesFiltrados = diaEntrenamiento
-                .getEjerciciosAsignaciones()
-                .stream()
-                .filter(eA -> eA.getEjercicio() == this).collect(Collectors.toList());
-        return ejerciciosAsignacionesFiltrados.get(0);
     }
 
     @Override
@@ -45,7 +37,7 @@ public class EjercicioSimple extends Ejercicio {
     }
 
     @Override
-    public List<EjercicioSimple> getEjercicios() {
+    public List<Ejercicio> getEjercicios() {
         return null;
     }
 }

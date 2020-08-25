@@ -6,17 +6,38 @@ import domain.calculos_ideales.AdapterCalculoIdeal;
 import domain.calculos_ideales.AdapterCalculoIdealExterno;
 import domain.rutina.ejercicios.Ejercicio;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.time.DayOfWeek;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("motivacion_tonificar_cuerpo")
 public class TonificarCuerpo extends Motivacion{
+    @Column(name = "nivel_grasa_ideal")
     private Float nivelDeGrasaIdeal;
+
+    @Column(name = "nivel_masa_muscualr_ideal")
     private Float nivelDeMasaMuscularIdeal;
+
+    @Transient
     private AdapterCalculoIdeal adapter;
+
+    @Transient
     private static Float minimoNivelAerobico = (float) 0;
+
+    @Transient
     private static Float maximoNivelAerobico = 4f;
+
+    @Transient
     private static Float minimoNivelEjercitacionMuscular = 5f;
+
+    @Transient
     private static Float maximoNivelEjercitacionMuscular = 5f;
+
+    @Transient
     private static Integer cantidadEjerciciosPromedio = 15;
 
     public TonificarCuerpo(Deportista deportista, List<DayOfWeek> diasDisponibles, List<Ejercicio> ejercicios){

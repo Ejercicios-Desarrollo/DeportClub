@@ -6,11 +6,20 @@ import domain.calculos_ideales.AdapterCalculoIdeal;
 import domain.calculos_ideales.AdapterCalculoIdealExterno;
 import domain.rutina.ejercicios.Ejercicio;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 import java.time.DayOfWeek;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("motivacion_bajar_peso")
 public class BajarDePeso extends Motivacion{
+    @Column(name = "peso_ideal")
     private Float pesoIdeal;
+
+    @Transient
     private AdapterCalculoIdeal adapter;
 
     public BajarDePeso(Deportista deportista, List<DayOfWeek> diasDisponibles, List<Ejercicio> ejercicios){

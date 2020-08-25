@@ -1,36 +1,46 @@
 package domain.rutina;
 
+import domain.Persistente;
+import domain.converters.DiaDeLaSemanaConverter;
 import domain.rutina.ejercicios.Ejercicio;
+import domain.rutina.ejercicios.EjercicioSimple;
 import domain.rutina.ejercicios.EjercicioSimpleAsignacion;
 import domain.rutina.registro.DiaEntrenamientoRegistro;
 import domain.rutina.registro.EjercicioSimpleRegistro;
 
+import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class DiaEntrenamiento {
+@Entity
+@Table(name = "dia_entrenamiento")
+public class DiaEntrenamiento extends Persistente {
+    @Convert(converter = DiaDeLaSemanaConverter.class)
     private DayOfWeek dayOfWeek;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dia_entrenamiento_id")
     private List<DiaEntrenamientoRegistro> diasEntrenamientoRegistro;
-    private List<Ejercicio> ejercicios;
-    private List<EjercicioSimpleAsignacion> ejerciciosAsignaciones;
-    private List<EjercicioSimpleRegistro> ejerciciosRegistro;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "diaEntrenamiento")
+    private List<DiaEntrenamientoEjercicio> diaEntrenamientoEjercicios;
+
+    public DiaEntrenamiento(){
+        this.diasEntrenamientoRegistro = new ArrayList<>();
+        this.diaEntrenamientoEjercicios = new ArrayList<>();
+    }
 
     public DiaEntrenamiento(DayOfWeek dayOfWeek){
         this.dayOfWeek = dayOfWeek;
         this.diasEntrenamientoRegistro = new ArrayList<>();
-        this.ejercicios = new ArrayList<>();
-        this.ejerciciosAsignaciones = new ArrayList<>();
-        this.ejerciciosRegistro = new ArrayList<>();
-    }
-
-    public List<EjercicioSimpleAsignacion> getEjerciciosAsignaciones() {
-        return ejerciciosAsignaciones;
+        this.diaEntrenamientoEjercicios = new ArrayList<>();
     }
 
     public void agregarEjercicios(List<Ejercicio> ejercicios){
-        this.ejercicios.addAll(ejercicios);
+        ejercicios.forEach(ejercicio -> this.diaEntrenamientoEjercicios.add(new DiaEntrenamientoEjercicio(this, ejercicio)));
     }
 
     public void registrarIngreso(){
@@ -42,15 +52,19 @@ public class DiaEntrenamiento {
         diaEntrenamientoHoy.setFechaHoraFin(LocalDateTime.now());
     }
 
-    public void registrarEjercicio(EjercicioSimpleRegistro ejercicioSimpleRegistro){
-        this.ejerciciosRegistro.add(ejercicioSimpleRegistro);
-    }
-
     public List<Ejercicio> getEjercicios() {
-        return ejercicios;
+        return this.diaEntrenamientoEjercicios.stream().map(DiaEntrenamientoEjercicio::getEjercicio).collect(Collectors.toList());
     }
 
-    public void agregarEjerciciosAsignaciones(List<EjercicioSimpleAsignacion> ejercicioSimpleAsignacioness){
-        this.ejerciciosAsignaciones.addAll(ejercicioSimpleAsignacioness);
+    public List<DiaEntrenamientoEjercicio> getDiaEntrenamientoEjercicios() {
+        return diaEntrenamientoEjercicios;
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public List<DiaEntrenamientoRegistro> getDiasEntrenamientoRegistro() {
+        return diasEntrenamientoRegistro;
     }
 }

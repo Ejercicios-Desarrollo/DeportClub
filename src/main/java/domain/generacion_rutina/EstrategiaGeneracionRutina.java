@@ -53,24 +53,4 @@ public abstract class EstrategiaGeneracionRutina {
     protected Integer cantidadSemanas(){
         return (int) (Math.random() * (cantidadMaximaSemanas - cantidadMinimaSemanas + 1) + cantidadMinimaSemanas);
     }
-
-    protected List<EjercicioSimpleAsignacion> asignarSeriesRepeticiones(List<Ejercicio> ejercicios){
-        List<EjercicioSimpleAsignacion> ejercicioSimpleAsignaciones = new ArrayList<>();
-
-        List<Ejercicio> ejerciciosSimples = ejercicios.stream().filter(e -> e.getTipoEjercicio() == TipoEjercicio.SIMPLE).collect(Collectors.toList());
-
-        ejerciciosSimples.forEach(eS -> ejercicioSimpleAsignaciones
-                .add(new EjercicioSimpleAsignacion((EjercicioSimple) eS, pesoDefecto, cantidadSeries, cantidadRepeticiones)));
-
-        List<Ejercicio> superseries = ejercicios.stream().filter(e -> e.getTipoEjercicio() == TipoEjercicio.SUPERSERIE).collect(Collectors.toList());
-
-        List<EjercicioSimple> ejercicioSimplesDeSuperseries = new ArrayList<>();
-
-        superseries.forEach(s -> ejercicioSimplesDeSuperseries.addAll(s.getEjercicios()));
-
-        ejercicioSimplesDeSuperseries.forEach(eS -> ejercicioSimpleAsignaciones
-                .add(new EjercicioSimpleAsignacion((EjercicioSimple) eS, pesoDefecto, cantidadSeries, cantidadRepeticiones)));
-
-        return ejercicioSimpleAsignaciones;
-    }
 }

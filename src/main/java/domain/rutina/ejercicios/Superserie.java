@@ -1,12 +1,20 @@
 package domain.rutina.ejercicios;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import java.util.*;
 
+@Entity
+@DiscriminatorValue("superserie")
 public class Superserie extends Ejercicio {
-    private List<EjercicioSimple> ejercicios;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Ejercicio> ejercicios;
 
     public Superserie(String descripcion, TipoEjercicio tipoEjercicio, TipoMusculo tipoMusculo) {
-        super(descripcion, tipoEjercicio, tipoMusculo);
+        super(descripcion, tipoMusculo);
+        this.tipoEjercicio = TipoEjercicio.SUPERSERIE;
         this.ejercicios = new ArrayList<>();
     }
 
@@ -28,12 +36,12 @@ public class Superserie extends Ejercicio {
         return summaryStatistics.getAverage();
     }
 
-    public void agregarEjercicios(EjercicioSimple ... ejercicios){
+    public void agregarEjercicios(Ejercicio ... ejercicios){
         Collections.addAll(this.ejercicios, ejercicios);
     }
 
     @Override
-    public List<EjercicioSimple> getEjercicios() {
+    public List<Ejercicio> getEjercicios() {
         return ejercicios;
     }
 }

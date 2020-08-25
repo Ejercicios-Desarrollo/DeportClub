@@ -1,13 +1,26 @@
 package domain.trofeos;
 
-import java.time.LocalDate;
+import domain.Persistente;
 
-public class Trofeo {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "trofeo")
+public class Trofeo extends Persistente {
+    @Column(name = "descripcion")
     private String descripcion;
-    private LocalDate fechaObtencion;
+
+    public Trofeo(){
+
+    }
 
     public Trofeo(String descripcion){
         this.descripcion = descripcion;
-        this.fechaObtencion = LocalDate.now();
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 }

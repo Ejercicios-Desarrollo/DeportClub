@@ -1,22 +1,32 @@
 package domain.rutina.ejercicios;
 
-import domain.rutina.ejercicios.EjercicioSimple;
+import domain.Persistente;
 
-public class EjercicioSimpleAsignacion {
-    private EjercicioSimple ejercicio;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "ejercicio_simple_asignacion")
+public class EjercicioSimpleAsignacion extends Persistente {
+    @Column(name = "peso")
     private Float peso;
+
+    @Column(name = "series")
     private Integer series;
+
+    @Column(name = "repeticiones")
     private Integer repeticiones;
 
-    public EjercicioSimpleAsignacion(EjercicioSimple ejercicio, Float peso, Integer series, Integer repeticiones){
-        this.ejercicio = ejercicio;
+    public EjercicioSimpleAsignacion(){
+
+    }
+
+    public EjercicioSimpleAsignacion(Float peso, Integer series, Integer repeticiones){
         this.peso = peso;
         this.series = series;
         this.repeticiones = repeticiones;
-    }
-
-    public EjercicioSimple getEjercicio() {
-        return ejercicio;
     }
 
     public Float getPeso() {
@@ -31,7 +41,7 @@ public class EjercicioSimpleAsignacion {
         return repeticiones;
     }
 
-    public Boolean fueCumplida(Float peso, Integer Series, Integer repeticiones){
+    public Boolean fueCumplida(Float peso, Integer series, Integer repeticiones){
         return this.peso.equals(peso) && this.series.equals(series) && this.repeticiones.equals(repeticiones);
     }
 }

@@ -1,31 +1,47 @@
 package domain.rutina.ejercicios;
 
+import domain.Persistente;
+
+import javax.persistence.*;
 import java.util.List;
 
-public abstract class Ejercicio {
+@Entity
+@Table(name = "ejercicio")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
+public abstract class Ejercicio extends Persistente {
+    @Column(name = "descripcion")
     private String descripcion;
-    private TipoEjercicio tipoEjercicio;
-    private TipoMusculo tipoMusculo;
 
-    public Ejercicio(String descripcion, TipoEjercicio tipoEjercicio, TipoMusculo tipoMusculo){
+    @Enumerated(EnumType.STRING)
+    private TipoMusculo musculo;
+
+    @Transient
+    protected TipoEjercicio tipoEjercicio;
+
+    public Ejercicio(){
+
+    }
+
+    public Ejercicio(String descripcion, TipoMusculo tipoMusculo){
         this.descripcion = descripcion;
-        this.tipoEjercicio = tipoEjercicio;
-        this.tipoMusculo = tipoMusculo;
+        this.musculo = tipoMusculo;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
+
+    public TipoMusculo getTipoMusculo(){
+        return musculo;
+    }
+
     public TipoEjercicio getTipoEjercicio() {
         return tipoEjercicio;
     }
 
-    public TipoMusculo getTipoMusculo(){
-        return tipoMusculo;
-    }
-
     public abstract Double getEjercitacionMuscular();
     public abstract Double getNivelAerobico();
-    public abstract List<EjercicioSimple> getEjercicios();
+    public abstract List<Ejercicio> getEjercicios();
 }

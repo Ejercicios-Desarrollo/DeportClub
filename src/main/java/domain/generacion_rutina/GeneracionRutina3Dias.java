@@ -4,6 +4,7 @@ import domain.motivaciones.Motivacion;
 import domain.rutina.DiaEntrenamiento;
 import domain.rutina.ejercicios.Ejercicio;
 import domain.rutina.Rutina;
+import domain.rutina.ejercicios.EjercicioSimpleAsignacion;
 import domain.rutina.ejercicios.TipoMusculo;
 
 import java.time.DayOfWeek;
@@ -18,7 +19,6 @@ public class GeneracionRutina3Dias extends EstrategiaGeneracionRutina{
     @Override
     public Rutina generarRutina(Motivacion motivacion, List<DayOfWeek> diasDisponibles) {
         Integer cantidadEjerciciosPorMusculo = motivacion.getCantidadEjerciosPromedio() / 3;
-        System.out.println("cantidadEjerciciosPorMusculo: " + cantidadEjerciciosPorMusculo);
         List<Ejercicio> ejerciciosFiltrados = filtrarListaEjerciciosPorNiveles(motivacion);
         List<Ejercicio> ejerciciosPecho = filtrarListaEjerciciosPorMusculo(this.ejercicios, TipoMusculo.PECHO);
         List<Ejercicio> ejerciciosEspalda = filtrarListaEjerciciosPorMusculo(this.ejercicios, TipoMusculo.ESPALDA);
@@ -28,24 +28,21 @@ public class GeneracionRutina3Dias extends EstrategiaGeneracionRutina{
         List<Ejercicio> ejerciciosAbdominales = filtrarListaEjerciciosPorMusculo(this.ejercicios, TipoMusculo.ABDOMINALES);
 
         DiaEntrenamiento diaEntrenamiento1 = new DiaEntrenamiento(diasDisponibles.get(0));
-        System.out.println("diasDisponibles.get(0): " + diasDisponibles.get(0));
         diaEntrenamiento1.agregarEjercicios(getNEjerciciosRandom(ejerciciosPecho, cantidadEjerciciosPorMusculo));
         diaEntrenamiento1.agregarEjercicios(getNEjerciciosRandom(ejerciciosBrazos, cantidadEjerciciosPorMusculo));
-        System.out.println("ejerciciosAbdominales " + ejerciciosAbdominales);
         diaEntrenamiento1.agregarEjercicios(getNEjerciciosRandom(ejerciciosAbdominales, cantidadEjerciciosPorMusculo));
-        diaEntrenamiento1.agregarEjerciciosAsignaciones(asignarSeriesRepeticiones(diaEntrenamiento1.getEjercicios()));
-        System.out.println("ejerciciosPecho " + ejerciciosPecho);
+        diaEntrenamiento1.getDiaEntrenamientoEjercicios().forEach(dE -> dE.agregarEjercicioAsignacion(new EjercicioSimpleAsignacion(pesoDefecto, cantidadSeries, cantidadRepeticiones)));
 
         DiaEntrenamiento diaEntrenamiento2 = new DiaEntrenamiento(diasDisponibles.get(1));
         diaEntrenamiento2.agregarEjercicios(getNEjerciciosRandom(ejerciciosEspalda, cantidadEjerciciosPorMusculo));
         diaEntrenamiento2.agregarEjercicios(getNEjerciciosRandom(ejerciciosBrazos, cantidadEjerciciosPorMusculo));
         diaEntrenamiento2.agregarEjercicios(getNEjerciciosRandom(ejerciciosAbdominales, cantidadEjerciciosPorMusculo));
-        diaEntrenamiento2.agregarEjerciciosAsignaciones(asignarSeriesRepeticiones(diaEntrenamiento2.getEjercicios()));
+        diaEntrenamiento2.getDiaEntrenamientoEjercicios().forEach(dE -> dE.agregarEjercicioAsignacion(new EjercicioSimpleAsignacion(pesoDefecto, cantidadSeries, cantidadRepeticiones)));
 
         DiaEntrenamiento diaEntrenamiento3 = new DiaEntrenamiento(diasDisponibles.get(2));
         diaEntrenamiento3.agregarEjercicios(getNEjerciciosRandom(ejerciciosPiernas, cantidadEjerciciosPorMusculo));
         diaEntrenamiento3.agregarEjercicios(getNEjerciciosRandom(ejerciciosHombros, cantidadEjerciciosPorMusculo));
-        diaEntrenamiento3.agregarEjerciciosAsignaciones(asignarSeriesRepeticiones(diaEntrenamiento3.getEjercicios()));
+        diaEntrenamiento3.getDiaEntrenamientoEjercicios().forEach(dE -> dE.agregarEjercicioAsignacion(new EjercicioSimpleAsignacion(pesoDefecto, cantidadSeries, cantidadRepeticiones)));
 
         Rutina rutina = new Rutina(3);
         rutina.agregarDiasEntrenamiento(diaEntrenamiento1, diaEntrenamiento2, diaEntrenamiento3);
